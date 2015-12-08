@@ -54,7 +54,10 @@ rundocker:
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	--cidfile="cid" \
-	-v $(TMP):/tmp \
+	-v $(TMP):$(TMP) \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-e DISPLAY=':0' \
+	--device /dev/dri \
 	-d \
 	-P \
 	-v /var/run/docker.sock:/run/docker.sock \
